@@ -5,6 +5,62 @@ Use these exact top-level headings.
 ## Artifact 1
 
 ```md
+# Research Brief
+
+## Topic
+
+## Report Goal
+
+## Audience
+
+## Geography
+
+## Time Scope
+
+## Must-Answer Questions
+
+## Constraints And Boundaries
+
+## Source Preferences
+
+## Full-Report Requirement
+```
+
+## Artifact 2
+
+```md
+# Search Plan
+
+## Search Facets
+
+## Priority Source Classes
+
+## Bilingual Query Set
+
+## First-Pass Coverage Targets
+
+## Known Risk Areas
+```
+
+## Artifact 3
+
+```md
+# Source Index
+
+## Search Records
+
+## Must-Use Sources
+
+## Section Coverage Map
+
+## Blocked Or Gated Sources
+
+## Remaining Open Evidence Needs
+```
+
+## Artifact 4
+
+```md
 # Storyline Packet
 
 ## Title
@@ -15,40 +71,85 @@ Use these exact top-level headings.
 
 ## Proposed Sections
 
+## Section Evidence Plan
+
 ## Open Questions
 
 ## Boundaries
 ```
 
-## Artifact 2
+## Artifact 5
 
 ```md
 # Baseline Report
 
 ## Research Question
 
-## Baseline Draft
+## Executive Summary
 
-## Current Boundaries
+## Report Body
+
+## Current Evidence Limits
 ```
 
-## Artifact 3
+Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
+Do not rely on bare source names without links.
+
+## Artifact 6
 
 ```md
-# Review Round
+# Partner Review
+
+## Overall Verdict
 
 ## Scores
 
-## Strengths
+## Gate Checks
 
-## Weaknesses
+## Findings
 
-## Rewrite Priorities
+## Missing Or Thin Sections
 
-## Evidence Hygiene Check
+## Required Next Action
+
+## Follow-Up Search Requests
+
+## Human Assist Triggers
 ```
 
-## Artifact 4
+## Artifact 7
+
+```md
+# Follow-up Search Brief
+
+## Why Another Search Is Needed
+
+## Priority Gaps
+
+## Target Source Types
+
+## Query Additions
+
+## Expected Report Sections Affected
+```
+
+## Artifact 8
+
+```md
+# Human Assist Request
+
+## Blocked Items
+
+## Why They Matter
+
+## Best Public Path Already Tried
+
+## Suggested Human Actions
+
+## Impact On Current Report
+```
+
+## Artifact 9
 
 ```md
 # Final Report
@@ -59,10 +160,13 @@ Use these exact top-level headings.
 
 ## What This Report Can Reliably Support
 
-## What It Does Not Yet Resolve
+## What Still Needs Human Input
 ```
 
-## Artifact 5
+Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
+Do not rely on bare source names without links.
+
+## Artifact 10
 
 ```md
 # Evidence Gap Log
@@ -71,17 +175,7 @@ Use these exact top-level headings.
 
 ## Assumptions
 
-## Gaps Requiring Human Input
-```
+## Gaps Requiring Search
 
-## Artifact 6
-
-```md
-# Next-input Request
-
-## Priority Inputs
-
-## Why Each Input Matters
-
-## Suggested Ways To Get It
+## Gaps Requiring Human Help
 ```

@@ -2,65 +2,90 @@
 
 ## Primary score dimensions
 
-Use this weighted score for research-type reports:
+Use this weighted score for the partner review:
 
 ```text
 Total Score =
-0.26 * Structure
-+ 0.26 * Logic
-+ 0.22 * Insight
-+ 0.14 * Expression
-+ 0.12 * Style Fit
+0.28 * Coverage
++ 0.22 * Logic
++ 0.18 * Insight
++ 0.16 * Expression
++ 0.16 * Style Fit
 ```
+
+Score each dimension on a 10-point scale.
 
 ## Dimension definitions
 
-### Structure
-- clear section logic
-- no major repetition
-- no obvious missing block in the main storyline
+### Coverage
+- the report addresses the must-answer questions
+- major sections are actually developed
+- the draft reads like a full report, not a stub
 
 ### Logic
 - arguments are internally consistent
 - conclusions do not jump beyond support
-- no major contradiction across sections
+- section-to-section reasoning holds together
 
 ### Insight
-- goes beyond information listing
-- identifies mechanisms, distinctions, or implications
+- goes beyond listing facts
+- identifies mechanisms, distinctions, tradeoffs, or implications
 - helps the reader think more clearly about the topic
 
 ### Expression
-- concise and readable
-- low redundancy
-- clear transitions and definitions
+- prose is readable and structured
+- redundancy is controlled
+- definitions and transitions are clear
 
 ### Style Fit
 - matches user style rules
-- respects banned sentence patterns
-- stays calm, structured, and discussion-ready
+- stays calm, useful, and discussion-ready
+- avoids unsupported certainty or salesy language
 
-## Evidence hygiene gate
+## Gates
 
-Do not fold this into the main optimization score.
-Treat it as a pass/fail gate:
+These gates are pass/fail. Do not hide them inside the numeric score.
+
+### Full-report gate
+
+Pass only if the draft is a genuine long-form report.
+Fail if it is skeletal, abbreviated, or mostly outline text.
+
+### Evidence hygiene gate
+
+Pass only if:
 - Evidence / Assumption / Gap are clearly separated
 - unsupported claims are not written as facts
-- missing inputs are explicitly logged
+- evidence limitations are visible, not buried
+
+### Citation link gate
+
+Pass only if source-dependent sections use clickable Markdown citations.
+Fail if the draft names reports, articles, or sources without linking them where the support is being invoked.
+
+### Source adequacy gate
+
+Pass only if each major section has enough supporting material for the current confidence level.
+Fail if the report is thin because the source base is weak or incomplete.
+
+## Routing logic
+
+- `pass`
+  Use when total score is at least 8.2 / 10 and all gates pass.
+
+- `rewrite`
+  Use when gates pass or nearly pass, but the main lift is still in structure, logic, insight, expression, or style.
+
+- `search-again`
+  Use when `Source adequacy gate` fails and likely public or licensed sources still exist.
+
+- `human-assist`
+  Use when `Source adequacy gate` fails mainly because the needed material is gated, login-only, internal, or otherwise inaccessible to the agent.
 
 ## Plateau logic
 
-A report is on a plateau when:
-- the last 2-3 rounds improve by less than ~1 point total each, and
-- the remaining weaknesses are mostly external-input gaps
+The run is on a plateau when:
+- the last 2 review rounds improve by less than about 0.7 total points each, and
+- the remaining weaknesses are mostly blocked on human access or non-public inputs
 
-## Rewrite priority logic
-
-Prioritize fixes in this order:
-1. Structure
-2. Logic
-3. Insight
-4. Expression
-5. Style Fit
-
-Do not chase style before fixing structure or logic.
+When that happens, stop iterating and document the blocker clearly.

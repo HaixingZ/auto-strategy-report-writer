@@ -1,476 +1,98 @@
 # auto-strategy-report-writer
 
-一个面向**研究型报告**的自动化写作优化 Skill。
+一个面向**完整研究报告**的长流程写作 Skill。
 
-它不追求“一次性生成一篇看起来很完整的报告”，而是把报告写作拆成一个**可迭代、可评分、可收敛**的闭环：
+它不是“一次搜一点资料，然后快速拼一版摘要”的工具，而是一个带有明确分工和落盘机制的 research harness：
 
-- 先把问题定义清楚
-- 再把主线和结构锁清楚
-- 生成 baseline draft
-- 对报告进行结构化评审和打分
-- 只改最关键的短板
-- 当分数进入平台期时自动停止
-- 最终输出报告正文 + Evidence Gap + 下一步需要补充的信息
+- 先定义问题和边界
+- 先做高质量资料搜索
+- 再锁主线和章节
+- 产出完整 baseline report
+- 交给独立 partner reviewer 挑问题
+- 如果缺的是内容，就继续搜索
+- 如果缺的是被拦截、需登录、需内部权限的资料，就明确请求人类协助
+- 文章相关部分要在对应段落或小节后补上可点击 citation，不能只写报告名称
+- 全流程把关键中间状态落成 markdown 文档
 
----
+## 核心设计
 
-## 1. 这个 Skill 是做什么的
+这个 Skill 的核心是把研究报告写作拆成 4 个角色：
 
-这个 Skill 专门用于：
+1. planner
+2. researcher
+3. drafter
+4. partner reviewer
 
-- 行业研究报告
-- 公司/业务研究报告
-- 研究型分析 memo
-- 需要先澄清问题、搭建框架、沉淀洞察的策略类文档
-- 依赖后续访谈、内部信息补充、专家信息补充的研究任务
+其中最关键的约束有两个：
 
-它**不适合**：
+- **先搜再写**：正文写作之前，必须先用 `high-quality-source-research` 做第一轮资料搜索。
+- **独立评审**：写报告的 agent 不能自己批准自己的报告；必须由独立 partner reviewer agent 给出 findings 和下一步动作。如果环境不支持独立 agent review，这个流程就不能宣称完成，不能拿自评兜底。
 
-- 必须直接做 go / no-go 判断的决策 memo
-- 必须明确给出强建议和明确取舍的方案类文件
-- 以执行排期、owner、里程碑为核心输出的执行方案
+这套结构参考了 Anthropic 2026-03-24 发布的文章 [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) 中真正可迁移的原则：
 
-一句话说：
+- 规划者 / 生成者 / 评估者分离
+- 用结构化 artifact 保存中间状态
+- 评估者必须独立、具体、怀疑而不是客气
+- 当问题是“信息没拿到”时，不要假装还能继续优化文字
 
-> 它是一个“研究报告生成器”，不是一个“强结论生成器”。
+## 工作流
 
----
+完整流程如下：
 
-## 2. 为什么要做这个 Skill
+1. 写 `Research Brief`
+2. 写 `Search Plan`
+3. 用 `high-quality-source-research` 做第 1 轮搜索
+4. 写 `Source Index`
+5. 写 `Storyline Packet`
+6. 写完整 `Baseline Report`
+7. 由独立 reviewer 写 `Partner Review`
+8. 根据评审结果决定：
+   - `rewrite`
+   - `search-again`
+   - `human-assist`
+   - `pass`
+9. 最终产出 `Final Report` 和 `Evidence Gap Log`
 
-普通的“AI写报告”流程有几个典型问题：
+## 落盘规则
 
-### 问题 1：一次性生成，质量不稳定
-很多系统会直接吐出一整篇报告，但：
-- 结构可能松
-- 逻辑可能跳
-- 洞察可能浅
-- 风格可能漂
-- 没有明确知道哪里不好
-
-### 问题 2：没有可追踪的中间状态
-通常只有最终稿，没有：
-- brief 定义
-- 主线版本
-- 模块拆解
-- 每轮 review 结果
-- 哪些地方缺信息
-
-这会导致后续很难复盘，也很难复用。
-
-### 问题 3：Evidence 不足时容易“硬写”
-研究型报告里，很多关键信息并不是公开资料就能拿到的，往往需要：
-- 用户访谈
-- 专家访谈
-- 内部材料
-- 一线业务反馈
-
-如果系统没有 Evidence Gap 机制，就很容易把推断写成事实。
-
-### 问题 4：没有停止机制
-有些写作系统会不停润色，但实际上：
-- 继续写也不会明显变好
-- 真正缺的是外部信息
-- 系统应该停下来，告诉人还缺什么
-
-这个 Skill 的目标，就是解决上面这几个问题。
-
----
-
-## 3. 它的核心独特点
-
-## 独特点 1：把报告写作做成“闭环优化”
-不是一次生成，而是：
-
-1. 生成 baseline
-2. review
-3. 打分
-4. 定向重写
-5. 再 review
-6. 平台期收敛
-
-也就是说，它关注的不是“写出来”，而是“持续变好，直到不值得再改”。
-
----
-
-## 独特点 2：默认只做研究型报告
-这个 Skill 刻意收窄了范围，只保留一种任务类型：
-
-- **研究型报告**
-
-这样做的好处是：
-- 目标更单纯
-- 评分更稳定
-- 验收更简单
-- 更符合真实研究工作流
-
-系统默认不追求：
-- 强结论
-- 明确建议
-- 直接替老板拍板
-
-而是追求：
-- 写清楚
-- 写扎实
-- 写得可讨论
-
----
-
-## 独特点 3：Evidence 不做无限优化，而做边界控制
-很多研究任务的难点不是“不会写”，而是“缺关键输入”。
-
-所以这个 Skill 不把 Evidence 当成一个必须无限拔高的主评分项，而是把它变成一个**gate check**：
-
-- 有没有区分 Evidence / Assumption / Gap
-- 有没有把推断写成事实
-- 有没有把缺口讲清楚
-- 有没有说明需要人补什么信息
-
-这意味着系统不会在“缺输入”的情况下假装自己还能继续把报告写得更完整。
-
----
-
-## 独特点 4：Evidence Gap 是正式交付物，不是附注
-这个 Skill 里，Evidence Gap 不是“顺手提一句”，而是正式产物。
-
-标准格式固定为：
-
-- Gap
-- Why it matters
-- What is needed
-- Who can provide
-- Impact on current conclusion
-
-这让研究流程变得：
-- 可追踪
-- 可行动
-- 可衔接人类输入
-
-也让系统可以明确知道：
-
-> 什么时候应该继续优化，什么时候应该停下来等人补材料。
-
----
-
-## 独特点 5：只改最重要的 1-2 个问题
-很多系统每轮会大改整篇，最后很难知道：
-- 到底哪里变好了
-- 哪些改动是有效的
-- 哪些是噪音
-
-这个 Skill 的规则是：
-- 每轮只改最关键的 1-2 类问题
-- 不做无边界大改
-- 不轻易新增大模块
-
-这样能确保：
-- 版本可比
-- 提升可解释
-- 收敛更稳定
-
----
-
-## 4. 整个 Skill 的工作流程
-
-下面是完整流程。
-
-## Step 1：Compile Brief
-先把任务编译成标准 brief。
-
-典型字段包括：
-- topic
-- purpose
-- audience
-- time scope
-- geography
-- object definition
-- must-answer questions
-- known materials
-- style rules
-- forbidden patterns
-- boundaries
-
-这一层的目标是：
-
-> 不让模糊任务直接进入写作阶段。
-
----
-
-## Step 2：生成 Storyline Packet
-在写正文之前，先生成主线包。
-
-标准内容包括：
-- Title
-- Thesis
-- Narrative Arc
-- Proposed Sections
-- Open Questions
-- Boundaries
-
-这一层的作用是：
-- 先锁主线
-- 先锁模块边界
-- 先暴露开放问题
-
-避免一上来就写正文，后面越写越偏。
-
----
-
-## Step 3：模块规划
-把报告拆成模块。
-
-每个模块会定义：
-- 这个模块要回答什么
-- 需要什么输入
-- 接受标准是什么
-- 它在整篇里的作用是什么
-
-这样做的好处是：
-- 后续可以按模块 review
-- 可以按模块重写
-- 不需要整篇重来
-
----
-
-## Step 4：生成 Baseline Report
-先出第一版完整但不追求完美的 baseline。
-
-baseline 的要求不是“直接终稿”，而是：
-- 结构完整
-- 可 review
-- 关键问题已覆盖
-- Evidence / Assumption / Gap 已初步区分
-
-它相当于整个系统的零号版本。
-
----
-
-## Step 5：Review + Scoring
-系统对 baseline 做一轮固定维度评分。
-
-主维度是：
-- Structure
-- Logic
-- Insight
-- Expression
-- Style Fit
-
-Evidence 不作为主总分，而作为 gate check：
-- 是否区分 Evidence / Assumption / Gap
-- 是否存在 unsupported claims
-- 是否生成了 Evidence Gap Log
-
-这一步的目标是：
-
-> 把“感觉这篇不够好”变成可执行的短板识别。
-
----
-
-## Step 6：Targeted Rewrite
-系统不会整篇胡乱重写，而是：
-- 只选最关键的 1-2 个短板
-- 只对高杠杆问题做修改
-
-优先级一般是：
-1. Structure
-2. Logic
-3. Insight
-4. Expression
-5. Style Fit
-
-这保证每轮改动都可解释。
-
----
-
-## Step 7：Plateau Check
-每轮改写后重新评分。
-
-如果满足：
-- 核心维度已达标
-- 连续 2-3 轮提升很小
-- 剩余问题主要是外部输入缺失
-
-系统就停止。
-
-这个停止不是“感觉差不多”，而是：
-
-> 继续改写的收益已经很低，真正缺的是人来补输入。
-
----
-
-## Step 8：输出最终三件套
-系统最终输出：
-
-### 1. Final Report
-研究报告正文
-
-### 2. Evidence Gap Log
-所有缺口的正式清单
-
-### 3. Next-input Request
-下一步建议补充什么信息、优先级是什么、为什么重要
-
----
-
-## 5. 这个 Skill 的评分逻辑
-
-当前研究型报告的总分建议是：
+除了搜索 skill 自己在 `research/` 下保存的检索档案，这个 Skill 还会把主流程 artifact 写到：
 
 ```text
-Total Score =
-0.26 * Structure
-+ 0.26 * Logic
-+ 0.22 * Insight
-+ 0.14 * Expression
-+ 0.12 * Style Fit
+report_runs/<slug>/
 ```
 
-注意：
-- **Evidence 不放进主总分**
-- Evidence 作为边界控制和合规闸门存在
+典型文件包括：
 
-这是这个 Skill 的一个关键设计。
+- `01-research-brief.md`
+- `02-search-plan.md`
+- `03-source-index.md`
+- `04-storyline-packet.md`
+- `05-baseline-report.md`
+- `06-partner-review-r1.md`
+- `07-follow-up-search-brief-r1.md`
+- `08-human-assist-request-r1.md`
+- `09-revised-report-r1.md`
+- `10-final-report.md`
+- `11-evidence-gap-log.md`
 
-原因很简单：
-- 很多信息不能靠公开搜索补齐
-- 需要访谈或内部输入
-- 如果把 Evidence 放进主优化目标，系统会被迫“硬凑完整”
-- 最后反而更容易失真
+这样做的目标是：
 
-所以现在的设计更现实。
+- 让长流程研究任务可恢复
+- 让 reviewer 真正基于证据链工作
+- 让人类能快速接手被卡住的环节
+- 避免“最后只剩一篇稿，过程全部丢失”
 
----
+## 适用范围
 
-## 6. 它的价值在哪里
+适合：
 
-## 价值 1：把研究报告从“写作行为”变成“优化流程”
-这个 Skill 的核心价值，不是更会写，而是更会：
-- 拆问题
-- 锁主线
-- 识别短板
-- 做局部修正
-- 平台期停止
+- 行业研究报告
+- 公司研究报告
+- 需要多轮搜索和迭代补料的长文档
+- 可能依赖 gated source、内部材料或人类协助的研究任务
 
-它更像一个研究报告生产系统，而不是单纯的写作 prompt。
+不适合：
 
----
-
-## 价值 2：让报告过程资产化
-它天然会沉淀：
-- brief
-- storyline
-- baseline
-- review logs
-- evidence gaps
-- next-input request
-
-这意味着后续可以：
-- 复盘
-- 局部重写
-- 继续深化
-- 换一轮输入继续跑
-
-这比“只有一篇终稿”有更高复用价值。
-
----
-
-## 价值 3：更适合真实工作流
-真实工作中，很多研究任务都是这样的：
-- 当前信息不完整
-- 需要先搭框架
-- 需要先形成可讨论版本
-- 后面再靠访谈 / 内部信息继续补
-
-这个 Skill 正好贴合这类流程。
-
-它不是试图假装一轮解决全部问题，而是明确告诉你：
-- 现在已经能写到哪里
-- 剩下哪里不能靠写继续提升
-- 下一步需要谁补什么信息
-
----
-
-## 价值 4：能和人形成低摩擦协作
-这个 Skill 的最终目标不是替人，而是和人接得更顺。
-
-系统负责：
-- 搭结构
-- 写初稿
-- 做优化
-- 标缺口
-
-人负责：
-- 补输入
-- 访谈
-- 提供内部材料
-- 做最终判断
-
-这是一个非常现实、而且容易做成的分工方式。
-
----
-
-## 7. 它和普通报告生成器的区别
-
-### 普通报告生成器
-- 一次出整篇
-- 缺少稳定中间状态
-- 不知道哪里差
-- 经常越改越乱
-- 缺输入时容易胡编
-
-### auto-strategy-report-writer
-- 先定 brief
-- 再锁 storyline
-- 再出 baseline
-- 再 review 和打分
-- 只改最关键短板
-- 平台期自动停
-- 缺输入时显式产出 Evidence Gap
-
-所以它更像：
-
-> 一个自治型研究报告优化器
-
-而不是：
-
-> 一个一次性报告生成器
-
----
-
-## 8. 当前版本的适用场景
-
-最适合：
-- 行业研究
-- 商业模式研究
-- 研究型分析 memo
-- 框架搭建型报告
-- 需要后续访谈补充的策略研究
-
-暂不适合：
-- 强结论方案书
-- 明确拍板型决策 memo
-- 以执行动作拆解为主的作战方案
-
----
-
-## 9. 当前版本的产物
-
-当前 skill 目录中已包含：
-
-- `SKILL.md`
-- `references/workflow.md`
-- `references/output-contracts.md`
-- `references/scoring.md`
-- `references/evidence-gap.md`
-
-如果继续迭代，后续最值得补的方向会是：
-- baseline / review / final 的样例
-- 更细的风格 preset
-- 评分脚本
-- gap log 自动模板生成脚本
-
----
-
-## 10. 一句话总结
-
-**auto-strategy-report-writer 的核心价值，不是把研究报告“自动写完”，而是在现有信息条件下，把报告写到最清楚、最扎实、最可讨论，并把剩余缺口定义清楚。**
+- 只要 source packet 的请求
+- 必须直接做 option ranking 的决策 memo
+- 以执行排期和 owner 为核心的执行方案

@@ -1,164 +1,107 @@
 ---
 name: auto-strategy-report-writer
-description: Write research-style strategy reports with a gated, self-improving workflow. Use when the user wants a research report, strategy report, industry analysis, research framework, report outline, or interview-informed study that does not require a hard recommendation. The skill focuses on clear structure, strong logic, useful insight, explicit Evidence/Assumption/Gap labeling, and iterative scoring until quality plateaus.
+description: Use when the user needs a full research report, industry study, or company analysis with nontrivial evidence needs, possible source-access gaps, and a requirement to preserve the work in markdown artifacts.
 ---
 
 # Auto Strategy Report Writer
 
-Use this skill to produce **research-type strategy reports** that aim to clarify the problem, sharpen the framework, and surface insight, without forcing a strong recommendation.
+Use this skill as a **long-running research harness**, not a one-shot writer.
 
-## What this skill is for
+**REQUIRED SUB-SKILL:** Use `high-quality-source-research` before drafting the report body and again whenever review identifies evidence or coverage gaps.
 
-Use this skill when the deliverable is primarily:
-- a research report
-- an industry or company analysis report
-- a report outline that will become a full report
-- a structured research memo
-- a report that may depend on future interviews or internal inputs
+**REQUIRED PARTNER AGENT:** Use a separate partner agent to review the report. If the environment cannot run an independent agent review, do not mark the report complete and do not replace the independent review with self-review.
 
-Do **not** use this skill when the user explicitly needs:
-- a hard go/no-go recommendation
-- a decision memo with explicit option ranking
-- an execution plan with owners and milestones as the primary output
+## When to Use
 
-## Core operating model
+Use when the deliverable is mainly:
+- a full research report
+- an industry or company study
+- a report that may require several search rounds before the content is complete
+- a report where some needed materials may be behind login, paywall, or internal access controls
 
-Treat report writing as an **optimization loop**, not a one-shot generation task.
+Do not use when the main output must be:
+- a simple source packet without synthesis
+- a hard go/no-go decision memo with explicit option ranking
+- an execution plan centered on owners, milestones, and rollout steps
 
-The system goal is:
-1. produce a baseline report
-2. review it against fixed dimensions
-3. rewrite only the most important weaknesses
-4. repeat until quality plateaus
-5. stop and output the report plus evidence gaps and next-input requests
+## Operating Rules
 
-## Workflow
+1. Start with a run folder and artifact trail.
+   Read `references/artifact-storage.md` and `references/output-contracts.md`.
 
-### 1. Compile the brief
+2. Compile a stable brief before searching or drafting.
+   Required fields live in `references/output-contracts.md`.
+   Ask only for missing boundaries that would materially change the report.
 
-First normalize the task into a stable brief:
-- topic
-- purpose
-- audience
-- time scope
-- geography
-- object definition
-- must-answer questions
-- known materials
-- style rules
-- forbidden patterns
-- boundaries
+3. Search first, draft second.
+   Use `high-quality-source-research` for the first pass.
+   Keep the search packet and link it from the run artifacts.
 
-If critical boundary information is missing, ask only for what is necessary to avoid a wrong report.
+4. Build a `Source Index` and `Storyline Packet` before the body draft.
+   The storyline should reflect both the question and the actual evidence coverage, not an idealized report structure.
 
-### 2. Lock the storyline first
+5. Draft a full baseline report.
+   The baseline must be a real report, not an outline, slide skeleton, or abbreviated memo.
 
-Before writing the body, produce a `Storyline Packet`.
+6. Cite source-dependent sections with clickable links.
+   In article-like analysis sections, add clickable Markdown citations near the end of the relevant paragraph or subsection, for example `[Report Title](URL)`.
+   Do not write a bare report name without a link when the source is being used as support.
 
-Read:
-- `references/workflow.md`
-- `references/output-contracts.md`
+7. Run an independent partner review.
+   Read `references/partner-review.md` and `references/scoring.md`.
+   The reviewer must be a separate agent, must return findings first, and must route the next action as `rewrite`, `search-again`, `human-assist`, or `pass`.
 
-Stop after the storyline if user confirmation is needed.
+8. Route feedback precisely.
+   If content is thin because public evidence likely exists, run another search round.
+   If content is thin because the source is gated, intercepted, login-only, or human-held, write a `Human Assist Request`.
+   If evidence is good enough and the problem is argumentation or prose, rewrite without searching again.
 
-### 3. Plan the modules
+9. Stop only at the right boundary.
+   Finish when the partner review passes, or when the remaining weaknesses are clearly blocked on human help and are documented in the final artifacts.
 
-Split the report into modules. For each module define:
-- purpose
-- must-answer questions
-- expected evidence needs
-- acceptance focus
+## Quick Reference
 
-Keep modules stable unless the thesis itself changes.
+| Situation | What to do |
+|---|---|
+| User wants a full report | Run the full harness |
+| User wants only sources | Use `high-quality-source-research`, not this skill |
+| Missing content seems publicly available | Create `Follow-up Search Brief` and search again |
+| Needed source is login-only or blocked by the site | Create `Human Assist Request` |
+| Independent reviewer is unavailable | Stop and state that completion is blocked until an independent agent can review |
+| Article section cites a report by name only | Replace it with a clickable Markdown citation like `[Title](URL)` |
+| Draft looks skeletal | Fail the full-report gate and expand before review |
+| Drafter wants to self-approve | Do not allow it; use a separate reviewer |
 
-### 4. Draft a baseline report
+## Red Flags
 
-Generate a first integrated version that is good enough to review, not perfect.
+- you are writing the report body before running `high-quality-source-research`
+- you are treating a source packet or outline as if it were already a full report
+- you are about to approve a draft without an independent partner agent review
+- the environment cannot run an independent reviewer, but you still want to mark the report complete
+- the content is thin because evidence is missing, but you are only rewriting prose
+- the needed source is blocked by login, click interception, paywall, or internal access, but you have not written `Human Assist Request`
+- you are starting another search round without first writing `Follow-up Search Brief`
+- a source-dependent paragraph mentions a report or article name without a clickable link
+- you are about to leave key work state out of the markdown artifact trail
 
-The baseline must:
-- answer the main question as far as current information allows
-- clearly separate Evidence / Assumption / Gap
-- avoid pretending missing information already exists
-- follow the user's writing constitution
+## Common Mistakes
 
-### 5. Review with fixed dimensions
-
-Score the draft using the research-report scoring system.
-
-Read:
-- `references/scoring.md`
-- `references/evidence-gap.md`
-
-Primary score dimensions:
-- Structure
-- Logic
-- Insight
-- Expression
-- Style Fit
-
-`Evidence` is not a main optimization score. It is a **gate check**:
-- mark Evidence / Assumption / Gap clearly
-- never present inference as fact
-- output an Evidence Gap log when information is missing
-
-### 6. Rewrite only the highest-leverage weaknesses
-
-Do not rewrite everything at once.
-
-For each iteration:
-- pick the 1-2 most important weaknesses
-- revise only those areas
-- preserve improvements already earned
-- avoid adding whole new sections unless necessary
-
-### 7. Stop when quality plateaus
-
-Stop when all are true:
-- the report is clear, logically sound, insightful, and stylistically aligned
-- recent iterations show minimal score improvement
-- remaining weaknesses mostly depend on outside input, interviews, or internal materials
-
-When stopping, output:
-- Final Report
-- Evidence Gap Log
-- Next-input Request
-
-## Evidence policy
-
-Use this hierarchy:
-- **Evidence**: supported by user-provided material or external sources already available
-- **Assumption**: reasoned inference that is useful but not fully verified
-- **Gap**: information missing and required for stronger confidence
-
-If evidence cannot improve without human input, do not force fake completeness. Instead, write a precise gap.
-
-## Style policy
-
-Follow explicit current-turn style rules first.
-
-Always preserve these house rules when the user has not overridden them:
-- optimize for clarity, structure, and reusable thinking
-- prefer definitions, mechanisms, and business meaning over slogans
-- avoid unsupported certainty
-- keep the text direct and discussion-ready
-- respect banned sentence patterns from the user
-
-## Output discipline
-
-Use lightweight Markdown only.
-
-Preferred public artifacts:
-- `Storyline Packet`
-- `Baseline Report`
-- `Review Round`
-- `Final Report`
-- `Evidence Gap Log`
-- `Next-input Request`
+- drafting before doing a serious source pass
+- letting the drafting agent grade its own report
+- replacing independent review with a self-review fallback
+- treating a source list as if it were already a report
+- citing a report by name only instead of adding a clickable Markdown citation
+- producing a shortened memo when the user asked for a full report
+- continuing to rewrite when the real blocker is access to gated or internal material
+- failing to save intermediate artifacts, which makes long-running work hard to resume
 
 ## References
 
 Read these files as needed:
-- `references/workflow.md` — overall sequence and stop rules
-- `references/output-contracts.md` — artifact formats
-- `references/scoring.md` — dimensions, weights, plateau logic
-- `references/evidence-gap.md` — how to label Evidence / Assumption / Gap and write gap requests
+- `references/workflow.md` — fixed sequence, routing rules, stop rule
+- `references/artifact-storage.md` — where to save markdown artifacts and how to name them
+- `references/output-contracts.md` — exact headings for every artifact
+- `references/partner-review.md` — reviewer posture, responsibilities, and action routing
+- `references/scoring.md` — score dimensions, gates, and pass thresholds
+- `references/evidence-gap.md` — Evidence / Assumption / Gap / Blocked Source handling
+- `references/harness-principles.md` — the planner / drafter / evaluator principles behind the workflow
