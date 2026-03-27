@@ -21,6 +21,7 @@ Score each dimension on a 10-point scale.
 - the report addresses the must-answer questions
 - major sections are actually developed
 - the draft reads like a full report, not a stub
+- the evidence base is broad enough for the topic, not artificially narrow
 
 ### Logic
 - arguments are internally consistent
@@ -63,6 +64,17 @@ Pass only if:
 Pass only if source-dependent sections use clickable Markdown citations.
 Fail if the draft names reports, articles, or sources without linking them where the support is being invoked.
 
+### Brief-alignment gate
+
+Pass only if the draft materially addresses the approved `Research Brief`, especially the stated `Report Goal` and `Must-Answer Questions`.
+Fail if the drafter or reviewer quietly narrows the thesis and then grades the report against that narrower version without user approval.
+
+### Deep-research source-mix gate
+
+Pass only if, for industry, market, competition, channel, or ad-spend claims where broader external sources plausibly exist:
+- the draft is not built mostly on company filings alone
+- major cross-company or market-wide claims have at least one non-company analytical source class behind them, or the missing class is explicitly documented as searched but unavailable or gated
+
 ### Source adequacy gate
 
 Pass only if each major section has enough supporting material for the current confidence level.
@@ -77,10 +89,10 @@ Fail if the report is thin because the source base is weak or incomplete.
   Use when gates pass or nearly pass, but the main lift is still in structure, logic, insight, expression, or style.
 
 - `search-again`
-  Use when `Source adequacy gate` fails and likely public or licensed sources still exist.
+  Use when `Brief-alignment gate`, `Source adequacy gate`, or `Deep-research source-mix gate` fails and likely public or licensed sources still exist.
 
 - `human-assist`
-  Use when `Source adequacy gate` fails mainly because the needed material is gated, login-only, internal, or otherwise inaccessible to the agent.
+  Use when `Brief-alignment gate`, `Source adequacy gate`, or `Deep-research source-mix gate` fails mainly because the needed material is gated, login-only, internal, or otherwise inaccessible to the agent.
 
 ## Plateau logic
 

@@ -26,6 +26,9 @@ Use these exact top-level headings.
 ## Full-Report Requirement
 ```
 
+This is a mandatory user-approval artifact.
+After writing `Research Brief`, pause for explicit user confirmation before writing `Search Plan`.
+
 ## Artifact 2
 
 ```md
@@ -42,6 +45,14 @@ Use these exact top-level headings.
 ## Known Risk Areas
 ```
 
+This is a mandatory user-approval artifact.
+After writing `Search Plan`, pause for explicit user confirmation before launching search round 1.
+
+Under `## Priority Source Classes`, default to a source mix instead of one issuer class.
+For industry, market, competition, channel, or ad-spend topics, include company filings plus at least two non-company target classes when plausible, such as consulting or association research, regulator or official platform research, measurement sources, and broker or bank analysis.
+
+Under `## First-Pass Coverage Targets`, name which major sections still require non-company analytical support before drafting.
+
 ## Artifact 3
 
 ```md
@@ -57,6 +68,9 @@ Use these exact top-level headings.
 
 ## Remaining Open Evidence Needs
 ```
+
+In `## Must-Use Sources`, do not rely on company filings alone when broader external analysis plausibly exists.
+In `## Section Coverage Map`, note where a section is still supported only by issuer disclosures and whether another search round is required before drafting.
 
 ## Artifact 4
 
@@ -78,6 +92,9 @@ Use these exact top-level headings.
 ## Boundaries
 ```
 
+This is a mandatory user-approval artifact.
+After writing `Storyline Packet`, pause for explicit user confirmation before drafting `Baseline Report`.
+
 ## Artifact 5
 
 ```md
@@ -94,6 +111,7 @@ Use these exact top-level headings.
 
 Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
 Do not rely on bare source names without links.
+Cross-company, market-wide, or channel-wide claims should not rely only on issuer self-description when broader external sources plausibly exist.
 
 ## Artifact 6
 
@@ -117,6 +135,9 @@ Do not rely on bare source names without links.
 ## Human Assist Triggers
 ```
 
+In `## Findings`, call out any `Must-Answer Questions` from `Research Brief` that remain under-supported.
+Do not approve against a narrower unofficial thesis without explicitly labeling it as a proposed scope reduction for user approval.
+
 ## Artifact 7
 
 ```md
@@ -132,6 +153,9 @@ Do not rely on bare source names without links.
 
 ## Expected Report Sections Affected
 ```
+
+This is not a routine user-approval artifact.
+Use it to discipline additional search rounds, and only stop for user approval here if the new round changes scope or introduces a human-assist dependency.
 
 ## Artifact 8
 
@@ -165,6 +189,7 @@ Do not rely on bare source names without links.
 
 Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
 Do not rely on bare source names without links.
+Cross-company, market-wide, or channel-wide claims should not rely only on issuer self-description when broader external sources plausibly exist.
 
 ## Artifact 10
 
