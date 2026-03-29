@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "auto-strategy-report-writer-marketplace",
+  "description": "Local marketplace for the auto-strategy-report-writer Claude Code plugin",
+  "owner": {
+    "name": "Haixing Zhang"
+  },
+  "plugins": [
+    {
+      "name": "auto-strategy-report-writer",
+      "description": "Long-running research report skill for Claude Code with milestone approvals, artifact trails, and evidence-gap handling.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/HaixingZ/auto-strategy-report-writer"
+    }
+  ]
+}

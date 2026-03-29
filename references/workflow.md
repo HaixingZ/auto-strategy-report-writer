@@ -1,126 +1,117 @@
-# Workflow
+# 工作流程
 
-## Fixed sequence
+## 固定流程
 
-1. Create the run directory and initialize the markdown artifact trail
-2. Write `Research Brief`
-3. Wait for explicit user approval of `Research Brief`
-4. Write `Search Plan`
-5. Wait for explicit user approval of `Search Plan`
-6. Run `high-quality-source-research` for search round 1
-7. Write `Source Index`
-8. Write `Storyline Packet`
-9. Wait for explicit user approval of `Storyline Packet`
-10. Write a full `Baseline Report`
-11. Run an independent `Partner Review`
-12. Route the next action
-13. Repeat search or rewrite rounds as needed
-14. Write `Final Report` and `Evidence Gap Log`
+1. 创建运行目录 `report_runs/<slug>/` 并初始化 artifact 链
+2. 规划/评审 agent 写 `Research Brief`
+3. 等用户确认 `Research Brief`
+4. 规划/评审 agent 写 `Search Plan`
+5. 等用户确认 `Search Plan`
+6. 执行 agent 按搜索操作规则搜索第 1 轮
+7. 执行 agent 写 `Source Index`
+8. 执行 agent 写 `Storyline Packet`
+9. 规划/评审 agent 审核 `Storyline Packet`，等用户确认
+10. 执行 agent 全力写报告 v1
+11. 规划/评审 agent 评审报告
+12. 根据路由决定下一步
+13. 迭代直到 `pass` 或平台期
+14. 产出 `final-report.md` 和 `evidence-gap-log.md`
 
-## Milestone user-confirmation rule
+## 里程碑用户确认规则
 
-The workflow has exactly three mandatory user-approval checkpoints:
+工作流程有 3 个必需确认点：
 - `Research Brief`
 - `Search Plan`
 - `Storyline Packet`
 
-Do not proceed past each checkpoint until the user explicitly approves it or requests revisions.
+在用户明确批准或要求修改之前，不得越过每个确认点继续推进。
 
-Do not add routine approval stops for:
+以下环节不需要用户确认：
 - `Follow-up Search Brief`
-- additional search rounds
-- normal rewrite rounds after review
+- 额外搜索轮次
+- 评审后的常规修改轮次
 
-If a later round proposes a narrower scope, a major thesis change, or a new dependency on human-held material, stop and ask the user to approve that change before proceeding.
+例外：如果后续轮次提议缩窄 scope、重大论点变更或新增对用户持有材料的依赖，则停下来请用户审批该变更后再继续。
 
-## Review availability rule
+## 评审可用性规则
 
-Independent review must be performed by a separate agent.
-If no separate agent can be run, stop the workflow and report that completion is blocked on independent review availability.
-Do not substitute self-review.
+评审必须由独立子 agent 执行（通过 Agent tool 启动）。
+如果无法启动独立 agent，停止工作流程并报告完成被阻塞于独立评审可用性。
+不要用自我评审替代。
 
-## Deep-research coverage rule
+## 路由逻辑
 
-For industry, market, channel, competition, or ad-spend reports, read `references/deep-research.md` and enforce source-mix coverage before drafting.
+评审完成后，规划/评审 agent 给出以下 5 种路由之一：
 
-Default expectation when plausible:
-- company filings or official disclosures
-- consulting, association, regulator, platform, or measurement research
-- broker, bank, or public capital-markets analysis
+- `improve`
+  来源基础已足够，主要提升空间在结构、逻辑、洞察、表达或风格。执行 agent 据此修改报告。
 
-Before drafting `Baseline Report`, satisfy one of these:
-- the `Source Index` shows non-company analytical support for the main sections
-- the missing source classes are already documented as searched, gated, or unavailable
+- `search`
+  Brief 对齐关卡、来源充分性关卡或深度研究来源组合关卡未通过，且公开来源可能存在。执行 agent 先写 `Follow-up Search Brief`，再执行补充搜索。
 
-If the source base is still mostly company filings and broader external research likely exists, do not route to `rewrite`.
-Route to `search-again` or `human-assist`.
+- `improve+search`
+  同时需要优化写作和补充搜索。执行 agent 先完成搜索，再基于新来源修改报告。
 
-## Brief-alignment rule
-
-The approved `Research Brief` is the binding scope for review.
-The drafter and reviewer must judge the report against the brief's `Report Goal` and `Must-Answer Questions`, not against a quietly reduced "current thesis".
-
-If the draft only supports a narrower thesis than the approved brief:
-- do not route to `pass`
-- explicitly name which brief questions remain under-supported
-- route to `search-again` if the missing support is likely reachable
-- route to `human-assist` if the missing support is blocked or non-public
-
-Only the user may approve a narrower scope.
-The agent may propose a narrower thesis, but it must be presented as a scope change, not as if the original brief were already satisfied.
-
-## Routing rules after review
-
-- `rewrite`
-  Use when the source base is already good enough and the main problems are structure, logic, insight, expression, or style.
-
-- `search-again`
-  Use when one or more must-answer questions are thinly supported and the missing support is likely available from public or licensed external sources.
-
-- `human-assist`
-  Use when the next-best sources are blocked by login, click interception, subscription, internal access, or another access barrier the agent cannot clear alone.
+- `blocked`
+  上述关卡未通过，主要因为信息被门控/登录/内部/付费墙阻塞。输出当前最佳报告、`Evidence Gap Log`，暂停等待用户协助。
 
 - `pass`
-  Use when the report is full-length, materially answers the question, passes all gates, and any remaining limitations are explicitly documented.
+  报告篇幅完整、实质回答了核心问题、通过所有关卡，且剩余局限性已记录。流程结束。
 
-## Search loop rule
+## 平台期检测
 
-Every additional search round must start from a written `Follow-up Search Brief`.
-Do not launch a vague second search.
-Name the missing sections, missing evidence types, target source classes, and expected report impact first.
-This artifact is for disciplined search routing, not a mandatory user-approval gate unless the search round also changes scope or requires human help.
+当以下条件同时成立时，运行处于平台期：
+- 连续 2 轮评审总分提升 < 0.7 分
+- 剩余弱点主要被信息获取阻塞（而非写作问题）
 
-## Full-report rule
+当平台期出现时，停止迭代并清晰记录阻塞原因，产出当前最佳报告和 `Evidence Gap Log`。
 
-The baseline and final report must both be real long-form reports.
-For deep-research topics, they must also show real source breadth instead of stretching one source family across all claims.
+## 停止规则
 
-Fail this rule if the draft is mainly:
-- bullets without developed prose
-- an outline pretending to be a report
-- section stubs with one or two lines each
-- a short memo when the user asked for a full report
+当以下条件全部满足时停止：
+- 报告实质回答了核心问题
+- 报告对齐已批准的 `Research Brief`，而非一个被悄然缩窄的论点
+- 独立评审路由为 `pass`，或仅剩 `blocked` 项
+- 剩余局限性已记录在 `Evidence Gap Log` 中
 
-## Review rule
+## 断点恢复协议
 
-The drafting agent does not approve its own work.
-The partner reviewer must be a separate agent.
-The partner reviewer reads the latest `Research Brief`, the latest report, the source index, and the latest search artifacts before deciding what happens next.
+当路由为 `blocked` 或会话中断时：
+1. 写 `run-status.md` 到运行目录，记录当前阶段、已完成项、阻塞项、待整合材料、下一步
+2. 新会话读取 `run-status.md` + 最新评审文件继续工作
+3. 恢复后使用完整质量标准，不因中断而降低要求
 
-## Stop rule
+## 搜索循环规则
 
-Stop when all are true:
-- the report materially answers the main question
-- the report materially addresses the approved brief rather than a silently reduced thesis
-- the independent partner review route is `pass`, or the only remaining blockers are human-blocked items
-- the remaining limitations are documented in `Evidence Gap Log` or `Human Assist Request`
+每轮额外搜索必须从一份书面的 `Follow-up Search Brief` 开始。
+不要启动模糊的搜索。首先命名：
+- 缺失的章节
+- 缺失的证据类型
+- 目标来源类别
+- 预期的报告影响
 
-## Human-input pause rule
+此 artifact 用于规范搜索路由，不是强制用户确认门控，除非该搜索轮次同时改变了 scope 或需要用户提供材料。
 
-If gated or human-held material is the main blocker, pause optimization and output:
-- current best report
-- `Human Assist Request`
-- `Evidence Gap Log`
+## Brief 对齐规则
 
-Do not continue pretending the report can become complete without that input.
-This pause is separate from the three normal milestone gates and exists whenever human intervention becomes the main blocker.
+已批准的 `Research Brief` 是评审的约束范围。
+
+起草者和评审者必须按照 Brief 的 `Report Goal` 和 `Must-Answer Questions` 来评判报告，而非按照一个悄然缩窄的"当前论点"。
+
+如果草稿仅支持一个比已批准 Brief 更窄的论点：
+- 不要路由到 `pass`
+- 明确指出 Brief 中哪些问题仍缺乏充分支持
+- 如果缺失的支持可能可以获取，路由到 `search`
+- 如果缺失的支持被阻塞或为非公开资料，路由到 `blocked`
+
+只有用户可以批准缩窄 scope。agent 可以提议缩窄，但必须将其作为 scope 变更来呈现，而不是表现为原始 Brief 已经被满足。
+
+## 完整报告规则
+
+每一版报告都必须是真正的完整长文。对于深度研究主题，还必须展示真正的来源广度，而不是将一类来源延伸覆盖所有论断。
+
+以下情况不满足此规则：
+- 没有展开论述的要点列表
+- 伪装成报告的大纲
+- 每节只有一两行的章节框架
+- 用户要求完整报告时的简短备忘录

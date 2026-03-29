@@ -1,8 +1,8 @@
-# Output Contracts
+# 输出契约
 
-Use these exact top-level headings.
+使用以下确切的顶级标题。
 
-## Artifact 1
+## Artifact 1 — Research Brief
 
 ```md
 # Research Brief
@@ -26,10 +26,10 @@ Use these exact top-level headings.
 ## Full-Report Requirement
 ```
 
-This is a mandatory user-approval artifact.
-After writing `Research Brief`, pause for explicit user confirmation before writing `Search Plan`.
+这是强制用户确认的 artifact。
+写完 `Research Brief` 后，暂停等待用户明确确认，然后再撰写 `Search Plan`。
 
-## Artifact 2
+## Artifact 2 — Search Plan
 
 ```md
 # Search Plan
@@ -45,15 +45,14 @@ After writing `Research Brief`, pause for explicit user confirmation before writ
 ## Known Risk Areas
 ```
 
-This is a mandatory user-approval artifact.
-After writing `Search Plan`, pause for explicit user confirmation before launching search round 1.
+这是强制用户确认的 artifact。
+写完 `Search Plan` 后，暂停等待用户明确确认，然后再启动第一轮搜索。
 
-Under `## Priority Source Classes`, default to a source mix instead of one issuer class.
-For industry, market, competition, channel, or ad-spend topics, include company filings plus at least two non-company target classes when plausible, such as consulting or association research, regulator or official platform research, measurement sources, and broker or bank analysis.
+在 `## Priority Source Classes` 下，默认使用多种来源类型的组合，而非单一发布方类别。对于行业、市场、竞争、渠道或广告支出类主题，在合理情况下应包含公司财报以及至少两类非公司目标来源，例如咨询或行业协会研究、监管机构或官方平台研究、测量来源，以及券商或银行分析。
 
-Under `## First-Pass Coverage Targets`, name which major sections still require non-company analytical support before drafting.
+在 `## First-Pass Coverage Targets` 下，标明在起草前哪些主要章节仍需要非公司分析类来源的支持。
 
-## Artifact 3
+## Artifact 3 — Source Index
 
 ```md
 # Source Index
@@ -69,10 +68,13 @@ Under `## First-Pass Coverage Targets`, name which major sections still require 
 ## Remaining Open Evidence Needs
 ```
 
-In `## Must-Use Sources`, do not rely on company filings alone when broader external analysis plausibly exists.
-In `## Section Coverage Map`, note where a section is still supported only by issuer disclosures and whether another search round is required before drafting.
+在 `## Must-Use Sources` 中，每条来源必须包含官方页 URL 和 PDF URL（如有）。当更广泛的外部分析合理存在时，不要仅依赖公司财报。
 
-## Artifact 4
+在 `## Section Coverage Map` 中，标注哪些章节仍仅由发行方披露支撑，以及在起草前是否需要另一轮搜索。
+
+搜索记录保存在 `report_runs/<slug>/search-records/` 下，格式参见 `references/search-record-format.md`。
+
+## Artifact 4 — Storyline Packet
 
 ```md
 # Storyline Packet
@@ -92,13 +94,13 @@ In `## Section Coverage Map`, note where a section is still supported only by is
 ## Boundaries
 ```
 
-This is a mandatory user-approval artifact.
-After writing `Storyline Packet`, pause for explicit user confirmation before drafting `Baseline Report`.
+这是强制用户确认的 artifact。
+写完 `Storyline Packet` 后，暂停等待用户明确确认，然后再起草报告。
 
-## Artifact 5
+## Artifact 5 — 报告
 
 ```md
-# Baseline Report
+# 报告
 
 ## Research Question
 
@@ -109,14 +111,16 @@ After writing `Storyline Packet`, pause for explicit user confirmation before dr
 ## Current Evidence Limits
 ```
 
-Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
-Do not rely on bare source names without links.
-Cross-company, market-wide, or channel-wide claims should not rely only on issuer self-description when broader external sources plausibly exist.
+在 `## Report Body` 内部，依赖来源的段落必须包含可点击的 Markdown 引用，例如 `[来源标题](URL)`。裸名称不通过引用链接关卡。
 
-## Artifact 6
+跨公司、全市场或全渠道的论断，在更广泛的外部来源合理存在时，不应仅依赖发行方自我描述。
+
+报告按版本递增命名：`05-report-v1.md`、`08-report-v2.md`，等等。
+
+## Artifact 6 — 评审
 
 ```md
-# Partner Review
+# 评审
 
 ## Overall Verdict
 
@@ -132,13 +136,15 @@ Cross-company, market-wide, or channel-wide claims should not rely only on issue
 
 ## Follow-Up Search Requests
 
-## Human Assist Triggers
+## Blocked Items
 ```
 
-In `## Findings`, call out any `Must-Answer Questions` from `Research Brief` that remain under-supported.
-Do not approve against a narrower unofficial thesis without explicitly labeling it as a proposed scope reduction for user approval.
+在 `## Findings` 中，指出 `Research Brief` 中任何仍缺乏充分支撑的 `Must-Answer Questions`。
+不要在未明确标注为需要用户审批的 scope 缩减的情况下，按照一个更窄的非官方论点来进行审批。
 
-## Artifact 7
+`## Required Next Action` 的路由决定为以下之一：`improve`、`search`、`improve+search`、`blocked`、`pass`。
+
+## Artifact 7 — Follow-up Search Brief
 
 ```md
 # Follow-up Search Brief
@@ -154,26 +160,28 @@ Do not approve against a narrower unofficial thesis without explicitly labeling 
 ## Expected Report Sections Affected
 ```
 
-This is not a routine user-approval artifact.
-Use it to discipline additional search rounds, and only stop for user approval here if the new round changes scope or introduces a human-assist dependency.
+这不是常规用户确认 artifact。
+用它来规范额外的搜索轮次，仅当新一轮搜索改变了 scope 或引入了用户协助依赖时才暂停等待用户确认。
 
-## Artifact 8
+## Artifact 8 — run-status.md
 
 ```md
-# Human Assist Request
+# 运行状态
 
-## Blocked Items
+## 当前阶段
 
-## Why They Matter
+## 已完成
 
-## Best Public Path Already Tried
+## 阻塞项
 
-## Suggested Human Actions
+## 待整合材料
 
-## Impact On Current Report
+## 下一步
 ```
 
-## Artifact 9
+断点恢复的核心文件。当路由为 `blocked` 或会话中断时写入运行目录。新会话读取此文件 + 最新评审文件继续工作。
+
+## Artifact 9 — Final Report
 
 ```md
 # Final Report
@@ -187,11 +195,11 @@ Use it to discipline additional search rounds, and only stop for user approval h
 ## What Still Needs Human Input
 ```
 
-Inside `## Report Body`, source-dependent sections should include clickable Markdown citations near the relevant paragraph or subsection ending, such as `[Source Title](URL)`.
-Do not rely on bare source names without links.
-Cross-company, market-wide, or channel-wide claims should not rely only on issuer self-description when broader external sources plausibly exist.
+在 `## Report Body` 内部，依赖来源的段落必须包含可点击的 Markdown 引用，例如 `[来源标题](URL)`。裸名称不通过引用链接关卡。
 
-## Artifact 10
+跨公司、全市场或全渠道的论断，在更广泛的外部来源合理存在时，不应仅依赖发行方自我描述。
+
+## Artifact 10 — Evidence Gap Log
 
 ```md
 # Evidence Gap Log

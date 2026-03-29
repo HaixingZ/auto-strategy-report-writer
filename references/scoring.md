@@ -1,8 +1,8 @@
-# Scoring
+# 评分
 
-## Primary score dimensions
+## 主要评分维度
 
-Use this weighted score for the partner review:
+在评审中使用以下加权评分：
 
 ```text
 Total Score =
@@ -13,91 +13,94 @@ Total Score =
 + 0.16 * Style Fit
 ```
 
-Score each dimension on a 10-point scale.
+每个维度按 10 分制评分。
 
-## Dimension definitions
+## 维度定义
 
 ### Coverage
-- the report addresses the must-answer questions
-- major sections are actually developed
-- the draft reads like a full report, not a stub
-- the evidence base is broad enough for the topic, not artificially narrow
+- 报告回答了必答问题
+- 主要章节有实质性展开
+- 草稿读起来像一份完整报告，而非一个框架
+- 证据基础对该主题足够广泛，没有人为缩窄
 
 ### Logic
-- arguments are internally consistent
-- conclusions do not jump beyond support
-- section-to-section reasoning holds together
+- 论证内在一致
+- 结论没有超越证据支撑的范围
+- 章节之间的推理逻辑连贯
 
 ### Insight
-- goes beyond listing facts
-- identifies mechanisms, distinctions, tradeoffs, or implications
-- helps the reader think more clearly about the topic
+- 超越了简单罗列事实
+- 识别了机制、区分、权衡或影响
+- 帮助读者更清晰地思考该主题
 
 ### Expression
-- prose is readable and structured
-- redundancy is controlled
-- definitions and transitions are clear
+- 行文可读且结构清晰
+- 冗余得到控制
+- 定义和过渡清晰
 
 ### Style Fit
-- matches user style rules
-- stays calm, useful, and discussion-ready
-- avoids unsupported certainty or salesy language
+- 符合用户风格规则
+- 保持冷静、有用、适合讨论的语调
+- 避免无依据的确定性或推销性语言
 
-## Gates
+## 关卡
 
-These gates are pass/fail. Do not hide them inside the numeric score.
+这些关卡是通过/不通过的。不要将它们隐藏在数值评分中。
 
-### Full-report gate
+### 完整报告关卡
 
-Pass only if the draft is a genuine long-form report.
-Fail if it is skeletal, abbreviated, or mostly outline text.
+仅当草稿是真正的长篇报告时才通过。
+如果是骨架式、简略的或主要是大纲文本，则不通过。
 
-### Evidence hygiene gate
+### 证据卫生关卡
 
-Pass only if:
-- Evidence / Assumption / Gap are clearly separated
-- unsupported claims are not written as facts
-- evidence limitations are visible, not buried
+仅在以下条件满足时通过：
+- 证据/假设/缺口被清晰区分
+- 未支撑的论断没有被写成事实
+- 证据局限性是可见的，没有被隐藏
 
-### Citation link gate
+### 引用链接关卡
 
-Pass only if source-dependent sections use clickable Markdown citations.
-Fail if the draft names reports, articles, or sources without linking them where the support is being invoked.
+仅当依赖来源的段落使用了可点击的 Markdown 引用（`[标题](URL)`）时才通过。
+如果 source-dependent 段落仅提及报告、文章或来源名称而未附加链接，则不通过。裸名称不通过。
 
-### Brief-alignment gate
+### Brief 对齐关卡
 
-Pass only if the draft materially addresses the approved `Research Brief`, especially the stated `Report Goal` and `Must-Answer Questions`.
-Fail if the drafter or reviewer quietly narrows the thesis and then grades the report against that narrower version without user approval.
+仅当草稿实质性地回应了已批准的 `Research Brief`，特别是其中声明的 `Report Goal` 和 `Must-Answer Questions` 时才通过。
+如果起草者或评审者悄然缩窄论点，然后按照那个更窄的版本来评判报告而未获得用户审批，则不通过。
 
-### Deep-research source-mix gate
+### 深度研究来源组合关卡
 
-Pass only if, for industry, market, competition, channel, or ad-spend claims where broader external sources plausibly exist:
-- the draft is not built mostly on company filings alone
-- major cross-company or market-wide claims have at least one non-company analytical source class behind them, or the missing class is explicitly documented as searched but unavailable or gated
+仅在以下条件满足时才通过——对于行业、市场、竞争、渠道或广告支出论断，且更广泛的外部来源合理存在时：
+- 草稿不是主要基于公司财报构建的
+- 主要的跨公司或全市场论断背后至少有一类非公司分析来源的支持，或者缺失的来源类别已被明确记录为已搜索但不可用或受限
 
-### Source adequacy gate
+### 来源充分性关卡
 
-Pass only if each major section has enough supporting material for the current confidence level.
-Fail if the report is thin because the source base is weak or incomplete.
+仅当每个主要章节对当前置信度水平有足够的支撑材料时才通过。
+如果报告因来源基础薄弱或不完整而内容单薄，则不通过。
 
-## Routing logic
+## 路由逻辑
 
 - `pass`
-  Use when total score is at least 8.2 / 10 and all gates pass.
+  当总分 >= 8.2 且所有关卡均通过时使用。
 
-- `rewrite`
-  Use when gates pass or nearly pass, but the main lift is still in structure, logic, insight, expression, or style.
+- `improve`
+  当关卡通过或接近通过，主要提升空间在结构、逻辑、洞察、表达或风格方面时使用。
 
-- `search-again`
-  Use when `Brief-alignment gate`, `Source adequacy gate`, or `Deep-research source-mix gate` fails and likely public or licensed sources still exist.
+- `search`
+  当 Brief 对齐关卡、来源充分性关卡或深度研究来源组合关卡未通过，且公开来源可能仍然存在时使用。
 
-- `human-assist`
-  Use when `Brief-alignment gate`, `Source adequacy gate`, or `Deep-research source-mix gate` fails mainly because the needed material is gated, login-only, internal, or otherwise inaccessible to the agent.
+- `improve+search`
+  同时需要优化写作和补充搜索时使用。
 
-## Plateau logic
+- `blocked`
+  当 Brief 对齐关卡、来源充分性关卡或深度研究来源组合关卡未通过，主要原因是所需材料受限、需登录、为内部资料或 agent 无法访问时使用。
 
-The run is on a plateau when:
-- the last 2 review rounds improve by less than about 0.7 total points each, and
-- the remaining weaknesses are mostly blocked on human access or non-public inputs
+## 平台期逻辑
 
-When that happens, stop iterating and document the blocker clearly.
+当以下条件成立时，运行处于平台期：
+- 连续 2 轮评审每轮总分提升 < 0.7 分
+- 剩余弱点主要受限于信息获取阻塞（而非写作问题）
+
+当平台期出现时，停止迭代并清晰记录阻塞原因。

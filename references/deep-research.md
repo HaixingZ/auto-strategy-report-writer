@@ -1,67 +1,67 @@
-# Deep Research
+# 深度研究
 
-## Purpose
+## 目的
 
-Deep research means the report is built from a mixed evidence base, not from one source family stretched across every section.
+深度研究意味着报告建立在混合证据基础之上，而不是将单一来源类型延伸到每个章节。
 
-## When to enforce this rule
+## 何时执行此规则
 
-Use this rule aggressively when the report is about:
-- an industry or market
-- competition or market structure
-- channels, media, ad spend, or customer acquisition
-- a company study that makes cross-company or sector-level claims
+当报告涉及以下主题时，应积极执行此规则：
+- 行业或市场
+- 竞争或市场结构
+- 渠道、媒体、广告支出或客户获取
+- 涉及跨公司或行业层面论断的公司研究
 
-## Default source mix
+## 默认来源组合
 
-For these topics, the first serious search pass should usually target multiple source classes:
+对于这些主题，第一轮正式搜索通常应覆盖多个来源类别：
 
-1. issuer and official disclosures
-   company filings, investor relations, exchange or regulator disclosures
+1. 发行方及官方披露
+   公司文件、投资者关系、交易所或监管机构披露
 
-2. external analytical or institutional research
-   consulting firms, associations, standards bodies, regulators, official platforms, measurement providers, or other non-issuer research organizations
+2. 外部分析或机构研究
+   咨询公司、行业协会、标准机构、监管机构、官方平台、测量服务提供商或其他非发行方研究组织
 
-3. capital-markets perspective
-   broker, bank, or public strategy or sector research when publicly accessible or licensed
+3. 资本市场视角
+   券商、银行或公开可访问或经授权的战略或行业研究
 
-News, reposts, and generic commentary can help with discovery, but they should not become the backbone of the report when stronger sources exist.
+新闻、转载和泛泛评论可以辅助发现线索，但当存在更强来源时，它们不应成为报告的主干。
 
-## Minimum drafting bar
+## 最低起草标准
 
-Before writing `Baseline Report`, satisfy one of these:
+在撰写报告之前，须满足以下条件之一：
 
-- the `Source Index` shows meaningful non-company analytical support for the major sections, or
-- the artifact trail shows that those source classes were explicitly searched and are unavailable, gated, or blocked
+- Source Index 显示主要章节具有有意义的非公司分析支撑，或者
+- 工件轨迹表明这些来源类别已被明确搜索，且确认不可用、被付费墙阻挡或被封锁
 
-Do not treat annual reports alone as enough for industry-wide claims if broader external sources are still plausibly reachable.
+不要在更广泛的外部来源仍可能触及的情况下，仅凭年报就对全行业论断视为充分。
 
-## Topic-specific guidance
+## 特定主题指导
 
-### Business model and industry-structure studies
+### 商业模式与行业结构研究
 
-- pair company disclosures with consulting, association, regulator, or broker perspectives on market structure, margins, concentration, demand, or competitive dynamics
-- use issuer self-description to explain the company, not to stand in for the whole market
+- 将公司披露与咨询、协会、监管机构或券商关于市场结构、利润率、集中度、需求或竞争格局的观点配对使用
+- 用发行方自述来解释公司本身，而非代替整个市场
 
-### Advertising, channel, and customer-acquisition studies
+### 广告、渠道与客户获取研究
 
-- separate company expense-line evidence from market or channel evidence
-- explicitly search platform case studies, official media-platform research, measurement providers, consulting or association reports, and broker or bank coverage of media, internet, consumer, or home-improvement sectors
-- do not infer channel mix, platform effectiveness, or market-wide ad trends from selling-expense ratios alone
+- 将公司费用项证据与市场或渠道证据分开
+- 明确搜索平台案例研究、官方媒体平台研究、测量服务提供商、咨询或协会报告、以及券商或银行对媒体、互联网、消费或家装行业的覆盖
+- 不要仅凭销售费用率推断渠道组合、平台效果或全市场广告趋势
 
-## Fail patterns
+## 失败模式
 
-Fail the deep-research standard if:
-- `Must-Use Sources` are dominated by company filings or annual reports
-- consulting, association, regulator, platform, measurement, or broker research was never meaningfully attempted
-- industry-wide conclusions rely mostly on issuer self-description
-- the ad-spend section uses expense ratios but lacks market, channel, or platform evidence
-- the draft is long in word count but narrow in evidence families
+以下情况视为未达到深度研究标准：
+- `Must-Use Sources` 以公司文件或年报为主
+- 从未有意义地尝试过咨询、协会、监管机构、平台、测量服务或券商研究
+- 全行业结论主要依赖发行方自述
+- 广告支出章节使用费用比率但缺乏市场、渠道或平台证据
+- 报告字数很多但证据家族很窄
 
-## Acceptable exception
+## 可接受的例外
 
-A narrower source base is acceptable only when the artifact trail makes the search history visible:
-- which missing source classes were tried
-- which bilingual queries or domains were used
-- whether the class is unavailable, paywalled, login-only, intercepted, or otherwise blocked
-- what decision or confidence limit this creates for the report
+仅当工件轨迹使搜索历史可见时，较窄的来源基础才可接受：
+- 哪些缺失的来源类别已被尝试
+- 使用了哪些双语查询或域名
+- 该类别是否不可用、被付费墙阻挡、需要登录、被拦截或以其他方式封锁
+- 这对报告的判断或置信度上限产生了什么影响

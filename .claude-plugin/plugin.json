@@ -1,0 +1,17 @@
+{
+  "name": "auto-strategy-report-writer",
+  "version": "0.1.0",
+  "description": "Long-running research report skill for Claude Code with milestone approvals, artifact trails, and evidence-gap handling.",
+  "author": {
+    "name": "Haixing Zhang"
+  },
+  "homepage": "https://github.com/HaixingZ/auto-strategy-report-writer",
+  "repository": "https://github.com/HaixingZ/auto-strategy-report-writer",
+  "keywords": [
+    "skills",
+    "research",
+    "report-writing",
+    "strategy",
+    "long-running-workflows"
+  ]
+}
