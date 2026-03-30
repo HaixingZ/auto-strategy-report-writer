@@ -210,5 +210,22 @@
 
 ## Gaps Requiring Search
 
+### Gap N
+- Gap:
+- Why it matters:
+- Best public path already tried:
+- What is needed:
+- Impact on current report:
+
 ## Gaps Requiring Human Help
+
+### Blocked Source N
+- Item:
+- Why it matters:
+- Best public path already tried:
+- Access blocker:
+- Suggested human action:
+- Impact on current report:
 ```
+
+`## Gaps Requiring Search` 下的每个条目使用 `### Gap N` 模板；`## Gaps Requiring Human Help` 下的每个条目使用 `### Blocked Source N` 模板。详见 `references/evidence-gap.md`。
